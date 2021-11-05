@@ -1,0 +1,31 @@
+device:
+   name: 'DeviceNameNotSet'
+   location: 'LocationNotSet'
+   
+email:
+   username: 'username'   
+   password: 'password'
+   address: 'email@server.com'
+   server_host: 'smtp.server.com'
+   port: 587
+
+global_receiver_addresses:
+   - 'email@server.com'
+   
+supported_controllers:
+   e2e:
+      ip: '192.168.0.23'
+   
+alarm_zones:
+   zone_one:
+      zone_name: '3A Shipping Cooler'
+      controller_type: 'E2e'
+      controller_pointer: '3A SHIP CLR:CONTROL TEMP'
+      use_global_receiver_addresses: false
+      receiver_addresses:
+         - 'email@server.com'
+      alarms:
+         high_temp: 55.0
+         high_temp_delay: 60
+         low_temp: 33.0
+         low_temp_delay: 30   

@@ -15,7 +15,7 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<groupId>com.rbrubaker</groupId>
 	<artifactId>temperature-alarm-mailer</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
@@ -24,15 +24,33 @@
 	<name>temperature-alarm-mailer</name>
 	<url>http://maven.apache.org</url>
 
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<dependencies>
 		<dependency>
+			<groupId>org.simplejavamail</groupId>
+			<artifactId>simple-java-mail</artifactId>
+			<version>4.2.3</version>
+		</dependency>
+		<dependency>
 			<groupId>com.rbrubaker</groupId>
 			<artifactId>e2e4j</artifactId>
 			<version>0.1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.Carleslc</groupId>
+			<artifactId>Simple-YAML</artifactId>
+			<version>1.7.2</version>
 		</dependency>
 	</dependencies>
 </project>
