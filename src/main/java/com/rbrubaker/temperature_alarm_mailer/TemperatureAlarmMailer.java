@@ -87,8 +87,8 @@ public class TemperatureAlarmMailer {
 				lastUpdate = Instant.now();
 			}
 			// Every 5 minutes
-			if (Duration.between(lastUpdate, Instant.now()).getSeconds() >= 20) {
-				System.out.println("Polling E2e...");
+			if (Duration.between(lastUpdate, Instant.now()).getSeconds() >= 300) {
+				System.out.println(TemperatureAlarmMailer.getLogTimeStamp() + " Polling E2e...");
 				// Poll E2e
 				ArrayList<String> pointers = new ArrayList<String>();
 				ArrayList<AlarmZone> zones = ConfigReader.getAlarmZones();
@@ -96,7 +96,7 @@ public class TemperatureAlarmMailer {
 				// Get a list of pointers
 				for (AlarmZone alarmZone : zones) {
 					pointers.add(alarmZone.getControllerPointer());
-					System.out.println("Read Pointer: " + alarmZone.getControllerPointer());
+					System.out.println(TemperatureAlarmMailer.getLogTimeStamp() + " Read Pointer: " + alarmZone.getControllerPointer());
 				}
 				
 				try {
