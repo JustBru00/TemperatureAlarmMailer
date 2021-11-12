@@ -1,5 +1,6 @@
 package com.rbrubaker.temperature_alarm_mailer;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
@@ -11,6 +12,7 @@ import com.rbrubaker.e2e4j.E2e;
 import com.rbrubaker.e2e4j.beans.ExpandedStatus;
 import com.rbrubaker.e2e4j.beans.MultiExpandedStatus;
 
+import io.prometheus.client.exporter.HTTPServer;
 import kong.unirest.UnirestException;
 
 /**
@@ -41,6 +43,8 @@ public class TemperatureAlarmMailer {
 	public static final String VERSION = "Version 0.1.0";	
 	private static Instant lastUpdate;
 	
+	private static HTTPServer server;
+	
 	public static void main(String[] args) {
 		System.out.println("TemperatureAlarmMailer " + VERSION);
 		System.out.println("TemperatureAlarmMailer is Copyright 2021 Rufus Brubaker Refrigeration. Software created by Justin Brubaker.");
@@ -67,6 +71,7 @@ public class TemperatureAlarmMailer {
 	        public void run() {
 	            try {	            	
 	                Thread.sleep(200);
+	                server.stop();
 	                System.out.println("\nReceived shutdown request from system. (CTRL-C)");
 	                
 	                running = false;	                
@@ -79,6 +84,12 @@ public class TemperatureAlarmMailer {
 		if (!ConfigReader.loadConfig()) {
 			return;
 		}		
+		
+		try {
+			server = new HTTPServer(9998);
+		} catch (IOException e) {			
+			e.printStackTrace();
+		}
 		
 		while (running) {
 			
@@ -115,6 +126,9 @@ public class TemperatureAlarmMailer {
 							for (int i = 0; i < pointers.size(); i++) {
 								ExpandedStatus thisStatus = expandedStatuses.get(i);
 								AlarmZone thisZone = zones.get(i);
+								
+								// Add Prometheus Endpoint
+								thisZone.getRoomTemperatureGauge().set(thisStatus.getValueAsDouble());
 								
 								try {
 									// High Temperature

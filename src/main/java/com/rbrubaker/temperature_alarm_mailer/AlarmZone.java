@@ -3,6 +3,9 @@ package com.rbrubaker.temperature_alarm_mailer;
 import java.time.Instant;
 import java.util.ArrayList;
 
+import io.prometheus.client.Gauge;
+
+
 public class AlarmZone {
 
 	private String name;
@@ -19,6 +22,8 @@ public class AlarmZone {
 	private double lowTempAlarm;
 	private int lowTempAlarmDelay;
 	private Instant lowTempAlarmTripStart;	
+	
+	private Gauge roomTemperatureGauge;
 	
 	public String getName() {
 		return name;
@@ -106,6 +111,16 @@ public class AlarmZone {
 
 	public void setLowTempAlarmTripStart(Instant lowTempAlarmTripStart) {
 		this.lowTempAlarmTripStart = lowTempAlarmTripStart;
+	}
+	
+	public Gauge getRoomTemperatureGauge() {
+		if (roomTemperatureGauge == null) {
+			roomTemperatureGauge = Gauge.build().name("tam_" + ConfigReader.getDeviceLocation().replace(" ", "_").toLowerCase() + "_" 
+					+ name.replace(" ", "_").replace("/", "_").toLowerCase() + "_roomtemp")
+					.help("The current room temperature of this zone").register();
+		}
+		
+		return roomTemperatureGauge;
 	}
 
 	@Override
