@@ -24,6 +24,8 @@ public class ConfigReader {
 	private static String emailAddress;
 	private static String emailServerHost;
 	private static int emailPortNumber;
+	private static String emailHighTempAlarmHtml;
+	private static String emailLowTempAlarmHtml;
 	
 	private static ArrayList<String> globalReceiverAddresses = new ArrayList<String>();
 	
@@ -62,6 +64,8 @@ public class ConfigReader {
 		emailAddress = config.getString("email.address");
 		emailServerHost = config.getString("email.server_host");
 		emailPortNumber = config.getInt("email.port");
+		emailHighTempAlarmHtml = config.getString("email.high_temp_alarm_html");
+		emailLowTempAlarmHtml = config.getString("email.low_temp_alarm_html");
 		
 		globalReceiverAddresses = (ArrayList<String>) config.getStringList("global_receiver_addresses");
 		
@@ -207,5 +211,15 @@ public class ConfigReader {
 
 	public static void setAlarmZones(ArrayList<AlarmZone> alarmZones) {
 		ConfigReader.alarmZones = alarmZones;
+	}
+
+	public static String getEmailHighTempAlarmHtml() {
+		return emailHighTempAlarmHtml;
+	}
+
+	public static String getEmailLowTempAlarmHtml() {
+		return emailLowTempAlarmHtml;
 	}    	
+	
+	
 }

@@ -40,7 +40,7 @@ import kong.unirest.UnirestException;
 public class TemperatureAlarmMailer {
 	
 	public static boolean running = true;
-	public static final String VERSION = "Version 0.1.0";	
+	public static final String VERSION = "Version 0.2.0";	
 	private static Instant lastUpdate;
 	
 	private static HTTPServer server;

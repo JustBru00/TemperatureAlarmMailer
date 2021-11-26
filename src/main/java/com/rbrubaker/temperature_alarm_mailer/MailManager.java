@@ -13,7 +13,7 @@ import com.rbrubaker.e2e4j.beans.ExpandedStatus;
 public class MailManager {
 	
 	public static void sendHighTempAlarm(AlarmZone zone, ExpandedStatus status) {
-		String mailHtml = Reference.HIGH_ALARM_EMAIL_HTML;
+		String mailHtml = ConfigReader.getEmailHighTempAlarmHtml();
 		mailHtml = mailHtml.replace("{CURRENT_TIME}", TemperatureAlarmMailer.getLogTimeStamp())
 				.replace("{ZONE_NAME}", zone.getName())
 				.replace("{ZONE_CURRENT_TEMPERATURE}", status.getValue())
@@ -30,7 +30,7 @@ public class MailManager {
 	}
 	
 	public static void sendLowTempAlarm(AlarmZone zone, ExpandedStatus status) {
-		String mailHtml = Reference.LOW_ALARM_EMAIL_HTML;
+		String mailHtml = ConfigReader.getEmailLowTempAlarmHtml();
 		mailHtml = mailHtml.replace("{CURRENT_TIME}", TemperatureAlarmMailer.getLogTimeStamp())
 				.replace("{ZONE_NAME}", zone.getName())
 				.replace("{ZONE_CURRENT_TEMPERATURE}", status.getValue())
