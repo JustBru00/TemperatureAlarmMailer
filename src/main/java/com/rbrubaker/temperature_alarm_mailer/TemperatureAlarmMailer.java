@@ -40,7 +40,7 @@ import kong.unirest.UnirestException;
 public class TemperatureAlarmMailer {
 	
 	public static boolean running = true;
-	public static final String VERSION = "Version 0.2.0";	
+	public static final String VERSION = "Version 0.2.1";	
 	private static Instant lastUpdate;
 	
 	private static HTTPServer server;
@@ -99,7 +99,7 @@ public class TemperatureAlarmMailer {
 			}
 			// Every 5 minutes
 			if (Duration.between(lastUpdate, Instant.now()).getSeconds() >= 300) {
-				System.out.println(TemperatureAlarmMailer.getLogTimeStamp() + " Polling E2e...");
+				//System.out.println(TemperatureAlarmMailer.getLogTimeStamp() + " Polling E2e...");
 				// Poll E2e
 				ArrayList<String> pointers = new ArrayList<String>();
 				ArrayList<AlarmZone> zones = ConfigReader.getAlarmZones();
@@ -107,7 +107,7 @@ public class TemperatureAlarmMailer {
 				// Get a list of pointers
 				for (AlarmZone alarmZone : zones) {
 					pointers.add(alarmZone.getControllerPointer());
-					System.out.println(TemperatureAlarmMailer.getLogTimeStamp() + " Read Pointer: " + alarmZone.getControllerPointer());
+					//System.out.println(TemperatureAlarmMailer.getLogTimeStamp() + " Read Pointer: " + alarmZone.getControllerPointer());
 				}
 				
 				try {
