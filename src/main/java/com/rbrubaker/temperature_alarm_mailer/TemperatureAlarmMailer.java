@@ -1,6 +1,5 @@
 package com.rbrubaker.temperature_alarm_mailer;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
@@ -12,12 +11,11 @@ import com.rbrubaker.e2e4j.E2e;
 import com.rbrubaker.e2e4j.beans.ExpandedStatus;
 import com.rbrubaker.e2e4j.beans.MultiExpandedStatus;
 
-import io.prometheus.client.exporter.HTTPServer;
 import kong.unirest.UnirestException;
 
 /**
 * TemperatureAlarmMailer - A small program that monitors temperatures and sends alarm emails.
-*   Copyright (C) 2021 Rufus Brubaker Refrigeration
+*   Copyright (C) 2024 Rufus Brubaker Refrigeration LLC
 *
 *   This program is free software: you can redistribute it and/or modify
 *   it under the terms of the GNU General Public License as published by
@@ -40,16 +38,14 @@ import kong.unirest.UnirestException;
 public class TemperatureAlarmMailer {
 	
 	public static boolean running = true;
-	public static final String VERSION = "Version 0.2.1";	
-	private static Instant lastUpdate;
-	
-	private static HTTPServer server;
+	public static final String VERSION = "Version 0.3.0";	
+	private static Instant lastUpdate;	
 	
 	public static void main(String[] args) {
 		System.out.println("TemperatureAlarmMailer " + VERSION);
-		System.out.println("TemperatureAlarmMailer is Copyright 2021 Rufus Brubaker Refrigeration. Software created by Justin Brubaker.");
+		System.out.println("TemperatureAlarmMailer is Copyright 2024 Rufus Brubaker Refrigeration LLC. Software created by Justin Brubaker.");
 		System.out.println("TemperatureAlarmMailer - A small program that monitors temperatures and sends alarm emails.\r\n"
-				+ "*   Copyright (C) 2021 Rufus Brubaker Refrigeration\r\n"
+				+ "*   Copyright (C) 2024 Rufus Brubaker Refrigeration LLC\r\n"
 				+ "*\r\n"
 				+ "*   This program is free software: you can redistribute it and/or modify\r\n"
 				+ "*   it under the terms of the GNU General Public License as published by\r\n"
@@ -70,8 +66,7 @@ public class TemperatureAlarmMailer {
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 	        public void run() {
 	            try {	            	
-	                Thread.sleep(200);
-	                server.stop();
+	                Thread.sleep(200);	                
 	                System.out.println("\nReceived shutdown request from system. (CTRL-C)");
 	                
 	                running = false;	                
@@ -83,13 +78,7 @@ public class TemperatureAlarmMailer {
 		
 		if (!ConfigReader.loadConfig()) {
 			return;
-		}		
-		
-		try {
-			server = new HTTPServer(9998);
-		} catch (IOException e) {			
-			e.printStackTrace();
-		}
+		}				
 		
 		while (running) {
 			
@@ -125,10 +114,7 @@ public class TemperatureAlarmMailer {
 							// We have the same amount of statuses returned as we gave in pointers.
 							for (int i = 0; i < pointers.size(); i++) {
 								ExpandedStatus thisStatus = expandedStatuses.get(i);
-								AlarmZone thisZone = zones.get(i);
-								
-								// Add Prometheus Endpoint
-								thisZone.getRoomTemperatureGauge().set(thisStatus.getValueAsDouble());
+								AlarmZone thisZone = zones.get(i);							
 								
 								try {
 									// High Temperature

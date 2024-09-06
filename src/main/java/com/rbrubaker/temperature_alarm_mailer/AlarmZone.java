@@ -3,11 +3,9 @@ package com.rbrubaker.temperature_alarm_mailer;
 import java.time.Instant;
 import java.util.ArrayList;
 
-import io.prometheus.client.Gauge;
-
 /**
 * TemperatureAlarmMailer - A small program that monitors temperatures and sends alarm emails.
-*   Copyright (C) 2021 Rufus Brubaker Refrigeration
+*   Copyright (C) 2021 Rufus Brubaker Refrigeration LLC
 *
 *   This program is free software: you can redistribute it and/or modify
 *   it under the terms of the GNU General Public License as published by
@@ -42,9 +40,7 @@ public class AlarmZone {
 	
 	private double lowTempAlarm;
 	private int lowTempAlarmDelay;
-	private Instant lowTempAlarmTripStart;	
-	
-	private Gauge roomTemperatureGauge;
+	private Instant lowTempAlarmTripStart;		
 	
 	public String getName() {
 		return name;
@@ -132,16 +128,6 @@ public class AlarmZone {
 
 	public void setLowTempAlarmTripStart(Instant lowTempAlarmTripStart) {
 		this.lowTempAlarmTripStart = lowTempAlarmTripStart;
-	}
-	
-	public Gauge getRoomTemperatureGauge() {
-		if (roomTemperatureGauge == null) {
-			roomTemperatureGauge = Gauge.build().name("tam_" + ConfigReader.getDeviceLocation().replace(" ", "_").toLowerCase() + "_" 
-					+ name.replace(" ", "_").replace("/", "_").toLowerCase() + "_roomtemp")
-					.help("The current room temperature of this zone").register();
-		}
-		
-		return roomTemperatureGauge;
 	}
 
 	@Override

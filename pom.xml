@@ -18,7 +18,7 @@
 
 	<groupId>com.rbrubaker</groupId>
 	<artifactId>temperature-alarm-mailer</artifactId>
-	<version>0.2.1-SNAPSHOT</version>
+	<version>0.3.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>temperature-alarm-mailer</name>
@@ -45,22 +45,12 @@
 		<dependency>
 			<groupId>com.rbrubaker</groupId>
 			<artifactId>e2e4j</artifactId>
-			<version>0.1.0-SNAPSHOT</version>
+			<version>0.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.Carleslc</groupId>
 			<artifactId>Simple-YAML</artifactId>
-			<version>1.7.2</version>
-		</dependency>
-		<dependency>
-			<groupId>io.prometheus</groupId>
-			<artifactId>simpleclient</artifactId>
-			<version>0.10.0</version>
-		</dependency>
-		<dependency>
-			<groupId>io.prometheus</groupId>
-			<artifactId>simpleclient_httpserver</artifactId>
-			<version>0.10.0</version>
+			<version>1.8.4</version>
 		</dependency>
 	</dependencies>
 </project>

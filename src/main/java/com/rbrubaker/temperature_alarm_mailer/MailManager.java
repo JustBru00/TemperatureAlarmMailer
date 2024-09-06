@@ -12,7 +12,7 @@ import com.rbrubaker.e2e4j.beans.ExpandedStatus;
 
 /**
 * TemperatureAlarmMailer - A small program that monitors temperatures and sends alarm emails.
-*   Copyright (C) 2021 Rufus Brubaker Refrigeration
+*   Copyright (C) 2021 Rufus Brubaker Refrigeration LLC
 *
 *   This program is free software: you can redistribute it and/or modify
 *   it under the terms of the GNU General Public License as published by
